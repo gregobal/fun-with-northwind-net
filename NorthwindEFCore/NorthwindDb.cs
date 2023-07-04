@@ -15,7 +15,7 @@ public class NorthwindDb: DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connection = "Data Source=.;Initial Catalog=Northwind;IntegratedSecurity=true;MultipleActiveResultSets=true";
+        var connection = "Data Source=DESKTOP-B9CIR5M\\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=true;TrustServerCertificate=True;MultipleActiveResultSets=true";
 
         optionsBuilder.UseSqlServer(connection);
     }
@@ -26,5 +26,8 @@ public class NorthwindDb: DbContext
             .Property(category => category.CategoryName)
             .IsRequired()
             .HasMaxLength(15);
+
+        modelBuilder.Entity<Product>()
+            .HasQueryFilter(p => !p.Discontinued);
     }
 }
