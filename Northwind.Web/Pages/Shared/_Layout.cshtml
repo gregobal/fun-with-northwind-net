@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.NET/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="https://cdn.jsdelivr.NET/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+          crossorigin="anonymous" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <hr />
+    <footer>
+        <p>Copyright &copy; 2023 - @ViewBag.Title</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.NET/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
