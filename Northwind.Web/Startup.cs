@@ -16,10 +16,12 @@ public class Startup
 
         app.UseRouting();
         app.UseHttpsRedirection();
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapGet("/", () => "Hello from Northwind");
+            endpoints.MapGet("/hello", () => "Hello from Northwind");
         });
     }
 }
