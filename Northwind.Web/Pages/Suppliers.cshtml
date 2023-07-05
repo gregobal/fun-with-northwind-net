@@ -1,6 +1,7 @@
 ﻿@page
 @using Northwind.Shared
 @model Northwind.Web.Pages.SuppliersModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <div class="row">
     <h1 class="display-2">Suppliers</h1>
@@ -26,4 +27,19 @@
             }
         </tbody>
     </table>
+</div>
+<div class="row">
+    <p>Enter details for new supplier</p>
+    <form method="post">
+        <div>
+            <input asp-for="Supplier.CompanyName" type="text" placeholder="Company name" />
+        </div>
+        <div>
+            <input asp-for="Supplier.Country" type="text" placeholder="Country" />
+        </div>
+        <div>
+            <input asp-for="Supplier.Phone" type="text" placeholder="Phone" />
+        </div>
+        <input type="submit" />
+    </form>
 </div>

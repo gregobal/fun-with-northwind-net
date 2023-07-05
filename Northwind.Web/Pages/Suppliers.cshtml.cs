@@ -14,6 +14,8 @@ namespace Northwind.Web.Pages
         }
 
         public IEnumerable<Supplier>? Suppliers { get; set; }
+        [BindProperty]
+        public Supplier Supplier { get; set; }
 
         public void OnGet()
         {
@@ -22,6 +24,19 @@ namespace Northwind.Web.Pages
             Suppliers = db.Suppliers
                 .OrderBy(s => s.Country)
                 .ThenBy(s => s.CompanyName);
+        }
+
+        public IActionResult OnPost()
+        {
+            if ((Supplier is not null) && ModelState.IsValid)
+            {
+                db.Suppliers.Add(Supplier);
+                db.SaveChanges();
+                return RedirectToPage("/suppliers");
+            } else
+            {
+                return Page();
+            }
         }
     }
 }
