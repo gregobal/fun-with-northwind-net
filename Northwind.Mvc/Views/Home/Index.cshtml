@@ -1,8 +1,79 @@
-﻿@{
+﻿@using Northwind.Shared
+@model HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
+    var currentItem = string.Empty;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (Model is not null)
+{
+    <div id="categories" class="carousel slide" data-bs-ride="carousel" data-interval="3000" data-keyboard="true">
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Model.Categories.Count; i++)
+            {
+                currentItem = i == 0 ? "active" : string.Empty;
+                <button class="@currentItem" type="button" data-bs-target="#categories" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+            }
+        </div>
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.Categories.Count; i++)
+            {
+                currentItem = i == 0 ? "active" : string.Empty;
+                var category = Model.Categories[i];
+                <div class="carousel-item @currentItem">
+                    <img class="d-block w-100"
+                         src="https://raw.githubusercontent.com/markjprice/cs10dotnet6/2a8ed9f290d618721aadca1a442f4b486ad4699d/Assets/Categories/category@(category.CategoryId).jpeg"
+                         alt="@category.CategoryName" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>@category.CategoryName</h2>
+                        <h3>@category.Description</h3>
+                        <p>
+                            <a class="btn btn-primary" href="/category/@category.CategoryId">View</a>
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#categories" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#categories" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>       
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Northwind</h1>
+        <p class="lead">
+            We have had @Model?.VisitorCount visitors this month.
+        </p>
+        @if (Model is not null)
+        {
+            <h2>Products</h2>
+            <div id="product-columns">
+                <ul>
+                    @foreach (Product p in @Model.Products)
+                    {
+                        <li>
+                            <a asp-controller="Home"
+                               asp-action="ProductDetail"
+                               asp-route-id="@p.ProductId">
+                                @p.ProductName costs
+                                @(p.UnitPrice is null ? "zero" : p.UnitPrice.Value.ToString("C"))
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
