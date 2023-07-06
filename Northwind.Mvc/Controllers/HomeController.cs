@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Northwind.Mvc.Models;
 using System.Diagnostics;
 
@@ -18,6 +19,7 @@ namespace Northwind.Mvc.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrators")]
         public IActionResult Privacy()
         {
             return View();
