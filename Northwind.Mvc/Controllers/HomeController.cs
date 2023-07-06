@@ -29,6 +29,23 @@ public class HomeController : Controller
         return View(model);
     }
 
+    public IActionResult ProductDetail(int? id) { 
+        if (!id.HasValue)
+        {
+            return BadRequest("You must pass a product Id in the route");
+        }
+
+        var model = db.Products
+            .SingleOrDefault(p => p.ProductId == id);
+
+        if (model is null)
+        {
+            return NotFound($"Prodict with Id = {id} not found");
+        }
+
+        return View(model);
+    }
+
     [Authorize(Roles = "Administrators")]
     public IActionResult Privacy()
     {
