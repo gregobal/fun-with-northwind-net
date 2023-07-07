@@ -10,12 +10,15 @@ namespace Northwind.Mvc.Controllers;
 public class HomeController : Controller
 {
     private readonly NorthwindContext db;
+    private readonly IHttpClientFactory clientFactory;
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger, NorthwindContext northwindContext)
+    public HomeController(ILogger<HomeController> logger, NorthwindContext northwindContext, 
+        IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         db = northwindContext;
+        clientFactory = httpClientFactory;
     }
 
     public async Task<IActionResult> Index()
@@ -44,6 +47,29 @@ public class HomeController : Controller
         {
             return NotFound($"Prodict with Id = {id} not found");
         }
+
+        return View(model);
+    }
+
+    public async Task<IActionResult> Customers(string country)
+    {
+        string uri;
+
+        if (string.IsNullOrEmpty(country))
+        {
+            ViewData["Title"] = "All Customers Worldwide";
+            uri = "api/customers/";
+        } else
+        {
+            ViewData["Title"] = $"Customers from {country}";
+            uri = $"api/customers/?country={country}";
+        }
+
+        var client = clientFactory.CreateClient(name: "Northwind.WebApi");
+        var request = new HttpRequestMessage(HttpMethod.Get, uri);
+        var response = await client.SendAsync(request);
+
+        var model = await response.Content.ReadFromJsonAsync<IEnumerable<Customer>>();
 
         return View(model);
     }
