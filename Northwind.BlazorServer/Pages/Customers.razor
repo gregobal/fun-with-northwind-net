@@ -1,0 +1,61 @@
+﻿@using Microsoft.EntityFrameworkCore
+@page "/customers/{country?}"
+@inject NorthwindContext db
+
+<h3>Customers@(string.IsNullOrWhiteSpace(Country) ? " Worldwide" : $" in {Country}")</h3>
+
+@if (customers is null)
+{
+    <p>LOADING...</p>
+} else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Company Name</th>
+                <th>Contact Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in customers)
+            {
+                <tr>
+                    <td>@c.CustomerId</td>
+                    <td>@c.CompanyName</td>
+                    <td>@c.ContactName</td>
+                    <td>
+                        @c.Address<br />
+                        @c.City<br />
+                        @c.Region<br />
+                        @c.Country<br />
+                        @c.PostalCode<br />
+                    </td>
+                    <td>@c.Phone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string? Country { get; set; }
+
+    private IEnumerable<Customer>? customers;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Country))
+        {
+            customers = await db.Customers.ToListAsync();
+        } else
+        {
+            customers = await db.Customers
+                .Where(c => c.Country == Country)
+                .ToListAsync();
+        }
+    }
+}

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Northwind.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddNorthwindContext();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
