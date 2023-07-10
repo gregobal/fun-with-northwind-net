@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<NorthwindContext>();
 
 var app = builder.Build();
 
@@ -31,6 +33,8 @@ app.UseCors(configurePolicy: options =>
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseHealthChecks(path: "/howdoyoufeel");
 
 app.MapControllers();
 
