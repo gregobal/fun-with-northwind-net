@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Mvc", "Northwind.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.WebApi", "Northwind.WebApi\Northwind.WebApi.csproj", "{729C4D6D-E196-4E01-9FC5-EA40C650F5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.BlazorServer", "Northwind.BlazorServer\Northwind.BlazorServer.csproj", "{8096DCB2-E3E5-4A56-9ADF-599A0297948D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.BlazorServer", "Northwind.BlazorServer\Northwind.BlazorServer.csproj", "{8096DCB2-E3E5-4A56-9ADF-599A0297948D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
