@@ -113,6 +113,11 @@ public class HomeController : Controller
         return NotFound();
     }
 
+    public IActionResult Chat()
+    {
+        return View();
+    }
+
     [Authorize(Roles = "Administrators")]
     public IActionResult Privacy()
     {
